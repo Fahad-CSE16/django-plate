@@ -14,9 +14,16 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView, Re
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
+from user.permissions import IsStaff, IsSuperUser
+from user.serializers import UserSerializer
 
 
 from user.utils import delete_cache
 
 User = get_user_model()
 
+
+class AdminUserListAPIView(ListAPIView):
+    permission_classes = (IsAuthenticated, IsSuperUser)
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
