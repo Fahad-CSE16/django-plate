@@ -1,0 +1,35 @@
+{% load inventory_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+</head>
+<body>
+    <h2 style="text-align: center;">{{title}} {% if total %}({{total}}){% endif %}</h2>
+    <hr>
+    <table border="1" style="margin-top: 15px;">
+        <thead>
+            <tr style="padding:5px;">
+                {% for item in fields %}
+                    <th>{{item|field_name_to_label|title}}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data %}
+                <tr style="padding:5px;">
+                    {% for field in fields %}
+                        <td>
+                            {{item|get_item:field}}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
